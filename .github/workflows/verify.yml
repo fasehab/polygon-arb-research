@@ -1,0 +1,31 @@
+name: Research safety checks
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  python-and-source-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check public-source policy
+        run: python3 tools/release_guard.py
+      - name: Python regressions
+        run: python3 -m unittest discover -s tests -v
+  rust-if-imported:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Test imported Rust (if any)
+        shell: bash
+        run: |
+          if [[ -f runtime/rust/Cargo.toml ]]; then
+            cd runtime/rust && cargo test --locked
+          else
+            echo 'Rust source not yet imported from VPS; no claim of Rust CI coverage.'
+          fi

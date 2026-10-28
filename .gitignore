@@ -1,0 +1,37 @@
+# Secrets / credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*keystore*
+*wallet*.json
+*secret*
+*credential*
+*mnemonic*
+# Internal / generated
+.git/
+**/__pycache__/
+**/.pytest_cache/
+**/.venv/
+**/venv/
+**/target/
+**/out/
+**/broadcast/
+**/cache/
+**/node_modules/
+**/artifacts/
+**/outputs/
+**/logs/
+outputs/
+*.log
+*.sqlite
+*.db
+*.bak
+*.backup
+*.zip
+*.tar*
+*.csv
+.DS_Store
